@@ -1,0 +1,11 @@
+[Unit]
+Description=RTSP-Server
+After=network.target
+
+[Service]
+ExecStartPre=/usr/bin/v4l2-ctl --set-parm 15 --set-ctrl video_bitrate=1200000 --set-fmt-video width=1296,height=972 --overlay=0 -d /dev/video0
+ExecStart=/usr/local/bin/v4l2rtspserver -W 1296 -H 972 -F 15 -P 8554 -Q 10  /dev/video0
+
+[Install]
+WantedBy=multi-user.target
+
